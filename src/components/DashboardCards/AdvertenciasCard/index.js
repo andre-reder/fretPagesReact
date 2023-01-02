@@ -2,7 +2,7 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { Card, MonthsGrid } from '../styles';
@@ -40,7 +40,7 @@ export default function AdvertenciasCard({
     11: 'Novembro',
     12: 'Dezembro',
   };
-  const monthsAbvMap = {
+  const monthsAbvMap = useMemo(() => ({
     1: 'Jan',
     2: 'Fev',
     3: 'Mar',
@@ -53,7 +53,7 @@ export default function AdvertenciasCard({
     10: 'Out',
     11: 'Nov',
     12: 'Dez',
-  };
+  }), []);
   const [modalShow, setModalShow] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState(currentMonth);
   const [selectedYear, setSelectedYear] = useState(Number(currentYear));
@@ -123,7 +123,7 @@ export default function AdvertenciasCard({
     } finally {
       setIsDownloadingRel(false);
     }
-  }, [codEmpresa, codUsu, currentDate, perfilUsu, signOut, token, currentMonthBeingShow, currentYearBeingShow]);
+  }, [codEmpresa, codUsu, currentDate, perfilUsu, signOut, token, currentMonthBeingShow, currentYearBeingShow, monthsAbvMap]);
 
   return (
     <>

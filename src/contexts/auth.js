@@ -132,7 +132,6 @@ export function AuthProvider({ children }) {
           return;
         }
         setValidado(true);
-        console.log(BodyTk.dadosUsuNavega.codEmpresa);
         await validaAcesso({
           tk: BodyTk.dadosUsuNavega.tk,
           codEmpresa: BodyTk.dadosUsuNavega.codEmpresa,
@@ -199,9 +198,8 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     if (codValidaQuery) {
       makeLogin();
-      console.log('useEffect executou', codValidaQuery);
     }
-  }, []);
+  }, [codValidaQuery, makeLogin]);
 
   const appData = useMemo(() => ({
     signed: validadoLocalStorage || validado,

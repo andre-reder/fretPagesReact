@@ -1,4 +1,6 @@
+import { useRef, useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
+import * as htmlToImage from 'html-to-image';
 import QRCode from 'react-qr-code';
 import Sidebar from '../../../../components/Sidebar';
 import Transitions from '../../../../components/Transition';
@@ -27,8 +29,6 @@ export default function VeiculosList() {
     handleTryAgain,
     modalShow,
     BodyReqVeiculosList,
-    exportRef,
-    downloadImage,
     setVeiculoQrCodeBeingShow,
     setVeiculoBeingEdited,
     setVeiculoBeingDeleted,
@@ -37,6 +37,23 @@ export default function VeiculosList() {
 
   const hasVeiculos = Veiculos && apiFetched;
   const hasFilteredVeiculos = Veiculos && apiFetched && filteredVeiculos?.length !== 0;
+
+  const exportRef = useRef(null);
+  const [cursor, setCursor] = useState('default');
+
+  const downloadImage = useCallback(async () => {
+    setCursor('progress');
+    const dataUrl = await htmlToImage.toSvg(exportRef.current, {
+      backgroundColor: '#fff',
+    });
+    // download image
+    const link = document.createElement('a');
+    link.download = `QR Codes veículos ${BodyReqVeiculosList.empresa}.svg`;
+    link.href = dataUrl;
+    link.click();
+    setCursor('default');
+    setModalShow(false);
+  }, [setCursor, setModalShow, BodyReqVeiculosList.empresa]);
 
   return (
     <>
@@ -136,8 +153,9 @@ export default function VeiculosList() {
           <MyModal
             show={modalShow}
             title={`QR Codes veículos ${BodyReqVeiculosList.empresa}`}
+            isActionButtonDisabled={cursor === 'progress'}
             modalBody={(
-              <QrCodesGrid ref={exportRef}>
+              <QrCodesGrid ref={exportRef} cursor={cursor}>
                 {Veiculos?.map((veiculo) => (
                   <div key={veiculo.codVeiculoSis}>
                     <h1>{veiculo.codVeiculo}</h1>

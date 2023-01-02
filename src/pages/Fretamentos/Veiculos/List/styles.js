@@ -10,6 +10,7 @@ export const QrCodesGrid = styled.div`
   max-width: 32;
   width: 100%;
   flex-wrap: wrap;
+  cursor: ${({ cursor }) => cursor};
   div {
     margin: 10px;
     h1 {

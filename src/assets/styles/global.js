@@ -357,7 +357,7 @@ export default createGlobalStyle`
           color: ${({ theme }) => theme.colors.gray[900]} !important;
           background: ${({ theme }) => theme.colors.lighterBackground};
           width: fit-content !important;
-          min-width: 20%;
+          min-width: inherit;
           height: inherit !important;
           box-shadow: 8px 4px 10px rgb(0 0 0 / 4%);
           &:hover {

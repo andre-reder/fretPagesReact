@@ -1,7 +1,6 @@
 import {
-  useEffect, useState, useMemo, useRef, useCallback,
+  useEffect, useState, useMemo, useCallback,
 } from 'react';
-import * as htmlToImage from 'html-to-image';
 import VeiulosService from '../../../../services/VeiculosService';
 import useLocalState from '../../../../hooks/useLocalState';
 import { useAppContext } from '../../../../contexts/auth';
@@ -34,22 +33,6 @@ export default function useVeiculosList() {
     Micro: <small className="orange">Micro</small>,
     Outros: <small className="gray">Outros</small>,
   };
-
-  const exportRef = useRef();
-
-  async function downloadImage() {
-    setModalShow(false);
-    setIsLoading(true);
-    const dataUrl = await htmlToImage.toSvg(exportRef.current, {
-      backgroundColor: '#fff',
-    });
-    // download image
-    const link = document.createElement('a');
-    link.download = 'QrCode.svg';
-    link.href = dataUrl;
-    link.click();
-    setIsLoading(false);
-  }
 
   const loadVeiculos = useCallback(async () => {
     try {
@@ -104,8 +87,7 @@ export default function useVeiculosList() {
     handleTryAgain,
     modalShow,
     BodyReqVeiculosList,
-    exportRef,
-    downloadImage,
+    setIsLoading,
     setVeiculoQrCodeBeingShow,
     setVeiculoBeingEdited,
     setVeiculoBeingDeleted,

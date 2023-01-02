@@ -69,7 +69,6 @@ export default function LinhaShapeForm({ buttonLabel }) {
   KmlToGtfsShapes.prototype.handleFileSelect = function (files) {
     setThisFiles(null);
     if (files.length != 1) {
-      console.log('Expected just one file.');
       return false;
     }
     setThisFiles(files[0]);
@@ -86,7 +85,6 @@ export default function LinhaShapeForm({ buttonLabel }) {
 
   KmlToGtfsShapes.prototype.convert = function () {
     if (!thisFiles) {
-      console.log('no file specified');
       return;
     }
 
@@ -200,7 +198,6 @@ export default function LinhaShapeForm({ buttonLabel }) {
       setIsConvertButtonDisabled(false);
     }
     setShape(objMounted);
-    console.log('shapeFinal:', objMounted);
   };
 
   const handleFileChange = (event) => {

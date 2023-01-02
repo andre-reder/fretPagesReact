@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
+import { toast } from 'react-toastify';
 import { CustomStyle } from '../CustomSelectStyle';
 import MyModal from '../Modal';
 import useErrors from '../../hooks/useErrors';
@@ -272,7 +273,7 @@ export default function VeiculoForm({ page, buttonLabel, codVeiculoSis }) {
       );
       // setLinhasFretado([]);
     } catch (error) {
-      console.log(error);
+      toast.error(`Ocorreu um erro ao alterar o local de trabalho, tente novamente (${error})`);
     }
     setIsSelectLoading(false);
     setIsLinhasSelectLoading(false);
